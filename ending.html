@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Chapter — Varsha's 18th</title>
+  <link rel="stylesheet" href="ending.css" />
+</head>
+<body>
+
+  <canvas id="endingCanvas"></canvas>
+  <div id="particleBurst" class="particle-burst" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+
+    <nav class="back-nav">
+      <a href="main.html" class="back-link">← Back to beginning</a>
+    </nav>
+
+    <header class="ending-hero">
+      <p class="hero-tag">Final Chapter</p>
+      <h1 class="hero-title">
+        Happy 18th Birthday<span class="comma">,</span><br>
+        <span class="name-glow">Varsha</span>
+        <span class="heart" aria-hidden="true">💜</span>
+      </h1>
+    </header>
+
+    <!-- Main content -->
+    <div class="ending-content">
+
+      <div class="ending-block eb-first">
+        <p>18 years ago, a story began. It didn't come with instructions or a map or a clear idea of what it was supposed to become. It just began — one day at a time, one year at a time, one version of you at a time.</p>
+      </div>
+
+      <div class="ending-divider" aria-hidden="true">
+        <span class="div-star">✦</span>
+      </div>
+
+      <div class="ending-block">
+        <p>And here you are. On the other side of all those years. All those exam nights and lunch breaks and late conversations and songs that understood. All the ordinary days that somehow added up to something.</p>
+        <p>You are, without question, someone worth knowing. The kind of person who loves things deeply — music, rain, the specific purple of dusk. The kind of person who picks a hard thing to study because they want to build something real. The kind of person who keeps friendships alive through text boxes and years and distance.</p>
+      </div>
+
+      <div class="ending-divider" aria-hidden="true">
+        <span class="div-star">✦</span>
+      </div>
+
+      <div class="ending-block">
+        <p>I want to be honest: this isn't the ending of anything. It's actually the opposite. 18 is the part where everything you've been building — quietly, without realizing it — becomes the foundation you get to build from.</p>
+        <p>The music stays. The rain stays. The purple stays. You stay — just with more room to be all of it.</p>
+      </div>
+
+      <div class="ending-divider" aria-hidden="true">
+        <span class="div-star">✦</span>
+      </div>
+
+      <div class="ending-block eb-final">
+        <p>So: happy birthday, Varsha. For real. Not the polite kind — the kind where you actually mean every word of it.</p>
+        <p>May 18 be the beginning of the best chapter yet.</p>
+      </div>
+
+    </div>
+
+    <!-- The quote -->
+    <div class="final-quote-wrap">
+      <div class="fq-line" aria-hidden="true"></div>
+      <blockquote class="final-quote">
+        <p>18 isn't the end of childhood.</p>
+        <p>It's the beginning of your own story.</p>
+      </blockquote>
+      <div class="fq-line" aria-hidden="true"></div>
+    </div>
+
+    <!-- Floating stars section -->
+    <div class="stars-section" aria-hidden="true">
+      <span class="float-star fs1">✦</span>
+      <span class="float-star fs2">✦</span>
+      <span class="float-star fs3">💜</span>
+      <span class="float-star fs4">✦</span>
+      <span class="float-star fs5">✦</span>
+    </div>
+
+    <!-- Closing -->
+    <div class="closing-block">
+      <div class="closing-inner">
+        <p class="closing-main">Made with 💜 for your 18th.</p>
+        <p class="closing-sub">One birthday. One you. Irreplaceable.</p>
+        <a href="main.html" class="restart-btn">← Read it again</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    /* ---- Cinematic star background ---- */
+    (function(){
+      const c = document.getElementById('endingCanvas');
+      const ctx = c.getContext('2d');
+      let stars = [];
+      let shootingStars = [];
+      let tick = 0;
+
+      function resize(){
+        c.width = window.innerWidth; c.height = window.innerHeight;
+        const n = Math.floor(c.width * c.height / 5500);
+        stars = Array.from({length: n}, () => ({
+          x: Math.random() * c.width, y: Math.random() * c.height,
+          r: Math.random() * 1.8 + 0.2,
+          a: Math.random(), da: (Math.random() * 0.005 + 0.001) * (Math.random() < .5 ? 1 : -1),
+          hue: 265 + Math.random() * 60
+        }));
+      }
+
+      function spawnShootingStar(){
+        shootingStars.push({
+          x: Math.random() * c.width * 0.7,
+          y: Math.random() * c.height * 0.4,
+          vx: 4 + Math.random() * 6,
+          vy: 2 + Math.random() * 3,
+          len: 80 + Math.random() * 120,
+          a: 1, life: 60
+        });
+      }
+
+      function draw(){
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        // Deep space gradient
+        const g = ctx.createRadialGradient(c.width*.5, c.height*.35, 0, c.width*.5, c.height*.4, c.width*.95);
+        g.addColorStop(0, '#1e1040');
+        g.addColorStop(.5, '#0e0628');
+        g.addColorStop(1, '#03010a');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, c.width, c.height);
+
+        // Nebula glow
+        const neb = ctx.createRadialGradient(c.width*.45, c.height*.3, 0, c.width*.45, c.height*.3, c.width*.4);
+        neb.addColorStop(0, 'rgba(107,33,168,0.18)');
+        neb.addColorStop(1, 'rgba(107,33,168,0)');
+        ctx.fillStyle = neb; ctx.fillRect(0, 0, c.width, c.height);
+
+        // Stars
+        for(const s of stars){
+          s.a += s.da; if(s.a > 1 || s.a < 0) s.da *= -1;
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+          ctx.fillStyle = `hsla(${s.hue},80%,82%,${s.a})`; ctx.fill();
+        }
+
+        // Shooting stars
+        tick++;
+        if(tick % 220 === 0) spawnShootingStar();
+        for(let i = shootingStars.length-1; i >= 0; i--){
+          const ss = shootingStars[i];
+          ss.x += ss.vx; ss.y += ss.vy; ss.life--;
+          ss.a = ss.life / 60;
+          if(ss.life <= 0){ shootingStars.splice(i,1); continue; }
+          ctx.beginPath();
+          ctx.moveTo(ss.x, ss.y);
+          ctx.lineTo(ss.x - ss.vx * (ss.len/10), ss.y - ss.vy * (ss.len/10));
+          const grad = ctx.createLinearGradient(ss.x, ss.y, ss.x - ss.vx*8, ss.y - ss.vy*8);
+          grad.addColorStop(0, `rgba(240,171,252,${ss.a})`);
+          grad.addColorStop(1, 'rgba(240,171,252,0)');
+          ctx.strokeStyle = grad; ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize', resize); resize(); draw();
+    })();
+
+    /* ---- Particle burst on load ---- */
+    (function(){
+      const container = document.getElementById('particleBurst');
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight * 0.35;
+
+      setTimeout(() => {
+        for(let i = 0; i < 40; i++){
+          const p = document.createElement('div');
+          p.className = 'burst-particle';
+          const angle = (i / 40) * Math.PI * 2;
+          const dist = 80 + Math.random() * 120;
+          const tx = Math.cos(angle) * dist;
+          const ty = Math.sin(angle) * dist;
+          p.style.cssText = `
+            left: ${cx}px; top: ${cy}px;
+            --tx: ${tx}px; --ty: ${ty}px;
+            animation-delay: ${Math.random() * 0.3}s;
+            width: ${2 + Math.random() * 4}px;
+            height: ${2 + Math.random() * 4}px;
+          `;
+          container.appendChild(p);
+        }
+      }, 600);
+    })();
+
+    /* ---- Scroll reveal for ending blocks ---- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) { e.target.classList.add('revealed'); }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.ending-block, .final-quote-wrap, .closing-block').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+<script src="globalMusic.js"></script>
+</body>
+</html>

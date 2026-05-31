@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Something is coming...</title>
+  <link rel="stylesheet" href="countdown.css" />
+</head>
+<body>
+
+  <!-- Particle Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Countdown Wrapper -->
+  <div id="countdownWrapper">
+
+    <!-- Floating words -->
+    <div class="float-words" aria-hidden="true">
+      <span class="fw fw1">Dreams</span>
+      <span class="fw fw2">Future</span>
+      <span class="fw fw3">Memories</span>
+      <span class="fw fw4">Purple</span>
+      <span class="fw fw5">Rain</span>
+      <span class="fw fw6">Eighteen</span>
+      <span class="fw fw7">Journey</span>
+      <span class="fw fw8">Stars</span>
+    </div>
+
+    <!-- Hero text -->
+    <div class="hero-top">
+      <p class="pre-title">Something beautiful is arriving</p>
+      <h1 class="main-title">June <span class="highlight">4</span></h1>
+    </div>
+
+    <!-- Glass card -->
+    <div class="glass-card" role="timer" aria-label="Countdown to June 4">
+      <div class="card-inner">
+        <div class="progress-label">Journey To 18</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressFill"></div>
+          </div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+
+        <div class="timer-grid">
+          <div class="time-unit">
+            <div class="time-num" id="days">00</div>
+            <div class="time-label">Days</div>
+          </div>
+          <div class="time-sep" aria-hidden="true">:</div>
+          <div class="time-unit">
+            <div class="time-num" id="hours">00</div>
+            <div class="time-label">Hours</div>
+          </div>
+          <div class="time-sep" aria-hidden="true">:</div>
+          <div class="time-unit">
+            <div class="time-num" id="minutes">00</div>
+            <div class="time-label">Minutes</div>
+          </div>
+          <div class="time-sep" aria-hidden="true">:</div>
+          <div class="time-unit">
+            <div class="time-num" id="seconds">00</div>
+            <div class="time-label">Seconds</div>
+          </div>
+        </div>
+
+        <div class="quote-area">
+          <p class="rotating-quote" id="rotatingQuote"></p>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-note">Something worth waiting for.</p>
+  </div>
+
+  <!-- Midnight Transition Overlay -->
+  <div id="midnightOverlay">
+    <canvas id="transitionCanvas"></canvas>
+    <div class="transition-title" id="transitionTitle">
+      <span class="t-happy">Happy 18th Birthday</span>
+      <span class="t-name">Varsha</span>
+    </div>
+  </div>
+
+  <script src="countdown.js"></script>
+  <script src="globalMusic.js"></script>
+</body>
+</html>

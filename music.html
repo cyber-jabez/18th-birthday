@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Varsha's Playlist 💜</title>
+  <link rel="stylesheet" href="music.css" />
+</head>
+<body>
+
+  <canvas id="musicBg"></canvas>
+  <div id="rainContainer" class="rain-container" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+
+    <nav class="back-nav">
+      <a href="main.html" class="back-link">← Back</a>
+      <button class="rain-btn" id="rainToggle" aria-pressed="false" title="Toggle Rain Mode">
+        🌧 Rain Mode
+      </button>
+    </nav>
+
+    <header class="music-hero">
+      <p class="hero-pre">Page Four</p>
+      <h1 class="hero-title">Varsha's Playlist 💜</h1>
+      <p class="hero-sub">Some memories are photographs.<br>Some memories are songs.</p>
+    </header>
+
+    <!-- Main Player Layout -->
+    <div class="player-layout">
+
+      <!-- Left: Now Playing + Controls -->
+      <section class="player-main" aria-label="Now playing">
+
+        <!-- Artwork -->
+        <div class="artwork-wrap">
+          <div class="artwork-ring" aria-hidden="true"></div>
+          <div class="artwork-frame" id="artworkFrame">
+            <canvas id="artworkCanvas" width="260" height="260" aria-hidden="true"></canvas>
+            <img id="artworkImg" src="" alt="Album art" class="artwork-img hidden" />
+          </div>
+        </div>
+
+        <!-- Song Info -->
+        <div class="song-info">
+          <p class="song-title" id="songTitle">Select a song to play</p>
+          <p class="song-artist" id="songArtist">—</p>
+        </div>
+
+        <!-- Seekbar -->
+        <div class="seekbar-wrap">
+          <span class="time-stamp" id="currentTime">0:00</span>
+          <div class="seekbar" id="seekbar" role="slider" aria-label="Song progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+            <div class="seekbar-track">
+              <div class="seekbar-fill" id="seekFill"></div>
+              <div class="seekbar-thumb" id="seekThumb"></div>
+            </div>
+          </div>
+          <span class="time-stamp" id="totalTime">0:00</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls" aria-label="Player controls">
+          <button class="ctrl-btn" id="shuffleBtn" aria-pressed="false" title="Shuffle (S)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5l-1.5-1.5-4.5 4.5-1.41-1.41L18.09 5H16zm-7.5 10.5L7.09 15H5l-2 2 1.41 1.41L6.91 17H9v-1.5l-.5-.5zM3 7l2 2h2.09l4.5 4.5 1.41-1.41L8.5 7.5 10 6H5L3 8zm13 10h-2.09l-1.5-1.5L11 16.91l1.91 2.09H16l1.5 1.5L19 19l-2-2 1.5-1.5-1.5 1.5z" fill="currentColor"/></svg>
+          </button>
+          <button class="ctrl-btn ctrl-prev" id="prevBtn" aria-label="Previous song">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" fill="currentColor"/></svg>
+          </button>
+          <button class="ctrl-btn ctrl-play" id="playBtn" aria-label="Play">
+            <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            <svg id="pauseIcon" viewBox="0 0 24 24" class="hidden" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg>
+          </button>
+          <button class="ctrl-btn ctrl-next" id="nextBtn" aria-label="Next song">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.5 3.64L8 17.14V9.86zM16 6h2v12h-2z" fill="currentColor"/></svg>
+          </button>
+          <button class="ctrl-btn" id="repeatBtn" aria-pressed="false" title="Repeat (R)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" fill="currentColor"/></svg>
+          </button>
+        </div>
+
+        <!-- Volume -->
+        <div class="volume-wrap">
+          <button class="vol-btn" id="muteBtn" aria-label="Mute">
+            <svg id="volIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="currentColor"/></svg>
+          </button>
+          <div class="vol-slider" id="volSlider" role="slider" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" tabindex="0">
+            <div class="vol-track">
+              <div class="vol-fill" id="volFill" style="width:100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keyboard hint -->
+        <p class="key-hint">Space = Play/Pause &nbsp;·&nbsp; ← → = Seek &nbsp;·&nbsp; ↑ ↓ = Volume</p>
+
+      </section>
+
+      <!-- Right: Playlist + Visualizer -->
+      <section class="player-side">
+
+        <!-- Visualizer -->
+        <div class="visualizer-wrap" aria-hidden="true">
+          <canvas id="visualizer"></canvas>
+        </div>
+
+        <!-- Playlist -->
+        <div class="playlist-wrap">
+          <div class="playlist-header">
+            <h2 class="playlist-title">Playlist</h2>
+            <span class="playlist-count" id="playlistCount"></span>
+          </div>
+
+          <div class="playlist-empty" id="playlistEmpty">
+            <p>No songs configured yet.</p>
+            <p class="hint-small">Add song paths to <code>SERVER_PLAYLIST</code> in music.js</p>
+          </div>
+
+          <ul class="playlist-list" id="playlistList" role="listbox" aria-label="Song queue">
+          </ul>
+          
+        </div>
+
+      </section>
+
+    </div>
+        <footer class="nav-foot">
+    <a href="chat.html" class="foot-link">← Chat Archives</a>
+    <a href="wishes.html" class="foot-link">18 Wishes →</a>
+    </footer>
+  </div>
+
+  <!-- Hidden audio element -->
+  <audio id="audioPlayer" preload="auto"></audio>
+
+  <script src="music.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Days — Varsha's 18th</title>
+  <link rel="stylesheet" href="school.css" />
+</head>
+<body>
+
+  <canvas id="schoolCanvas"></canvas>
+
+  <div class="page-wrap">
+
+    <nav class="back-nav">
+      <a href="main.html" class="back-link">← Back</a>
+    </nav>
+
+    <header class="page-header">
+      <p class="page-tag">Page Two</p>
+      <h1 class="page-title">The Chapter We Left Behind</h1>
+      <p class="page-subtitle">School gave us memories. 18 gives us possibilities.</p>
+    </header>
+
+    <!-- Timeline of memories -->
+    <section class="memory-timeline" aria-label="School memories">
+
+      <div class="memory-item mi-left">
+        <div class="memory-dot"></div>
+        <article class="memory-card">
+          <span class="mem-tag">The Classroom</span>
+          <h2 class="mem-title">Same Seats, Different Days</h2>
+          <p class="mem-text">
+            You know that feeling of walking into a classroom you've been in a hundred times and still not knowing what the day will bring? Some days the fan creaked. Some days the chalk screeched. Some days someone said something funny and the whole row tried not to laugh. Those mundane moments somehow became the ones that stayed.
+          </p>
+        </article>
+      </div>
+
+      <div class="memory-item mi-right">
+        <div class="memory-dot"></div>
+        <article class="memory-card">
+          <span class="mem-tag">Exam Season</span>
+          <h2 class="mem-title">The Night Before</h2>
+          <p class="mem-text">
+            That specific dread of exam night. Half-read textbooks. A pen that ran out at the wrong moment. The strange calm that came from knowing you'd already done what you could. And then sitting in the exam hall, writing fast, hoping your handwriting wasn't too terrible for the examiner to read.
+          </p>
+        </article>
+      </div>
+
+      <div class="memory-item mi-left">
+        <div class="memory-dot"></div>
+        <article class="memory-card">
+          <span class="mem-tag">Lunch Break</span>
+          <h2 class="mem-title">That Half Hour of Actual Life</h2>
+          <p class="mem-text">
+            The lunch break was the one part of school that felt like freedom. Noise, chaos, whatever you had in your tiffin box, finding a spot somewhere, talking about nothing in particular. Half an hour that always went too fast.
+          </p>
+        </article>
+      </div>
+
+      <div class="memory-item mi-right">
+        <div class="memory-dot"></div>
+        <article class="memory-card">
+          <span class="mem-tag">Teachers</span>
+          <h2 class="mem-title">The Ones You Remember</h2>
+          <p class="mem-text">
+            Some teachers were just names on a timetable. A few were the kind of people you carry with you. The ones who said something that stuck. The ones who made a subject feel real. The strict ones who turned out to be fair. School was partly the buildings, mostly the people.
+          </p>
+        </article>
+      </div>
+
+      <div class="memory-item mi-left">
+        <div class="memory-dot"></div>
+        <article class="memory-card">
+          <span class="mem-tag">The Final Bell</span>
+          <h2 class="mem-title">Last Days</h2>
+          <p class="mem-text">
+            Nobody tells you which day will be the last ordinary one. You just go home thinking you'll be back, and then suddenly — the building exists in photos and memories, not in your daily routine anymore. That last bell rang without ceremony. But it mattered.
+          </p>
+        </article>
+      </div>
+
+      <div class="memory-item mi-right">
+        <div class="memory-dot"></div>
+        <article class="memory-card">
+          <span class="mem-tag">Farewell</span>
+          <h2 class="mem-title">The Goodbye That Was Also a Beginning</h2>
+          <p class="mem-text">
+            Farewell is a strange word. It's not really goodbye — it's more like: good luck, I see you, take this part of your story with you. Everyone looked a little different that day. More grown up. More themselves. That chapter closed so a bigger one could open.
+          </p>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- Message block -->
+    <div class="school-message">
+      <div class="msg-inner">
+        <p class="msg-main">School gave us a timeline to grow up on. Now you get to set your own.</p>
+        <p class="msg-sub">18 is the first year that's entirely yours to write.</p>
+      </div>
+    </div>
+
+    <footer class="nav-foot">
+      <a href="about.html" class="foot-link">← About You</a>
+      <a href="chat.html" class="foot-link">Chat Archives →</a>
+    </footer>
+
+  </div>
+
+  <script>
+    (function(){
+      const c = document.getElementById('schoolCanvas');
+      const ctx = c.getContext('2d');
+      let pts = [];
+      function resize(){
+        c.width=window.innerWidth; c.height=window.innerHeight;
+        pts=Array.from({length:Math.floor(c.width*c.height/8000)},()=>({
+          x:Math.random()*c.width,y:Math.random()*c.height,
+          r:Math.random()*1.2+0.3,a:Math.random(),
+          da:(Math.random()*0.004+0.002)*(Math.random()<.5?1:-1),
+          hue:270+Math.random()*50
+        }));
+      }
+      function draw(){
+        ctx.clearRect(0,0,c.width,c.height);
+        const g=ctx.createRadialGradient(c.width/2,c.height*.5,0,c.width/2,c.height*.5,c.width*.9);
+        g.addColorStop(0,'#140c30'); g.addColorStop(.6,'#0b0520'); g.addColorStop(1,'#03010a');
+        ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
+        for(const p of pts){
+          p.a+=p.da; if(p.a>1||p.a<0)p.da*=-1;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle=`hsla(${p.hue},70%,75%,${p.a})`; ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize',resize); resize(); draw();
+    })();
+  </script>
+<script src="globalMusic.js"></script>
+</body>
+</html>

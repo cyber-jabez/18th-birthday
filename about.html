@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About You — Varsha's 18th</title>
+  <link rel="stylesheet" href="about.css" />
+</head>
+<body>
+
+  <canvas id="aboutCanvas"></canvas>
+
+  <div class="page-wrap">
+
+    <nav class="back-nav">
+      <a href="main.html" class="back-link" aria-label="Back to main page">
+        <span aria-hidden="true">←</span> Back
+      </a>
+    </nav>
+
+    <header class="page-header">
+      <p class="page-tag">Page One</p>
+      <h1 class="page-title">The Purple Universe</h1>
+      <p class="page-subtitle">A portrait of you, as I know it</p>
+    </header>
+
+    <div class="cards-grid">
+
+      <article class="about-card card-bts" tabindex="0">
+        <div class="card-header">
+          <span class="card-emoji">💜</span>
+          <h2 class="card-name">BTS</h2>
+        </div>
+        <p class="card-text">
+          There is something special about having a band that feels like yours. BTS isn't just music for you — it's comfort, it's pride, it's a whole world of feelings that words in regular conversation would never quite cover. The way you talk about them (or don't, because some things are just too personal) says a lot about the kind of person you are: someone who loves deeply and completely.
+        </p>
+        <div class="card-foot">Purple 💜</div>
+      </article>
+
+      <article class="about-card card-rain" tabindex="0">
+        <div class="card-header">
+          <span class="card-emoji">🌧</span>
+          <h2 class="card-name">Rain</h2>
+        </div>
+        <p class="card-text">
+          Not everyone understands why rain is beautiful. But you do. There's something in the sound of it against glass, the grey quiet of the sky, the smell of wet earth — it feels like a whole mood, a whole aesthetic, a whole personality. On rainy days, the world slows down just enough to feel like yours.
+        </p>
+        <div class="card-foot">Petrichor &amp; silence</div>
+      </article>
+
+      <article class="about-card card-purple" tabindex="0">
+        <div class="card-header">
+          <span class="card-emoji">🟣</span>
+          <h2 class="card-name">Purple Aesthetics</h2>
+        </div>
+        <p class="card-text">
+          Purple isn't just a colour. For some people it's an entire worldview — moody, thoughtful, a little dramatic in the best way. It shows up in what you like, what you save, what you find beautiful. There's a consistency there that is quietly its own kind of self-expression.
+        </p>
+        <div class="card-foot">Violet &amp; lavender &amp; dusk</div>
+      </article>
+
+      <article class="about-card card-bike" tabindex="0">
+        <div class="card-header">
+          <span class="card-emoji">🏍</span>
+          <h2 class="card-name">Bikes</h2>
+        </div>
+        <p class="card-text">
+          There is a freedom in it that's hard to explain to someone who doesn't feel it. Speed. Wind. The road stretching out ahead. It's not just transportation — it's a feeling. A kind of quiet rebellion. A reminder that you can just go.
+        </p>
+        <div class="card-foot">Wind & roads</div>
+      </article>
+
+      <article class="about-card card-civil" tabindex="0">
+        <div class="card-header">
+          <span class="card-emoji">🏗</span>
+          <h2 class="card-name">Civil Engineering</h2>
+        </div>
+        <p class="card-text">
+          You chose to build things. Not small things. Bridges, roads, structures — things that outlast the people who made them. That says something about how you think about the world. You want to leave it more solid, more connected, more real than you found it. That's not a career choice, it's a philosophy.
+        </p>
+        <div class="card-foot">Built to last</div>
+      </article>
+
+      <article class="about-card card-music" tabindex="0">
+        <div class="card-header">
+          <span class="card-emoji">🎵</span>
+          <h2 class="card-name">Music</h2>
+        </div>
+        <p class="card-text">
+          Music is the thing that knows your mood before you do. You have songs for different states of being — the ones that go with rain, the ones for when things are good, the ones that sit quietly when everything is too loud. That playlist says more about you than most conversations could.
+        </p>
+        <div class="card-foot">The right song at the right time</div>
+      </article>
+
+    </div>
+
+    <div class="closing-note">
+      <p>You're made up of very specific things. And those things are yours. 18 doesn't change any of them — it just gives them more room.</p>
+    </div>
+
+    <footer class="nav-foot">
+      <a href="main.html" class="foot-link">← Main</a>
+      <a href="school.html" class="foot-link">School Days →</a>
+    </footer>
+
+  </div>
+
+  <script>
+    // Inline particle background (reuse pattern, no separate JS file needed)
+    (function(){
+      const c = document.getElementById('aboutCanvas');
+      const ctx = c.getContext('2d');
+      let pts = [];
+      function resize(){
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        pts = Array.from({length: Math.floor(c.width*c.height/7000)}, () => ({
+          x: Math.random()*c.width, y: Math.random()*c.height,
+          r: Math.random()*1.4+0.3, a: Math.random(),
+          da: (Math.random()*0.005+0.002)*(Math.random()<.5?1:-1),
+          hue: 270+Math.random()*50
+        }));
+      }
+      function draw(){
+        ctx.clearRect(0,0,c.width,c.height);
+        const g = ctx.createRadialGradient(c.width/2,c.height*.5,0,c.width/2,c.height*.5,c.width);
+        g.addColorStop(0,'#160d35'); g.addColorStop(.7,'#0b0520'); g.addColorStop(1,'#03010a');
+        ctx.fillStyle=g; ctx.fillRect(0,0,c.width,c.height);
+        for(const p of pts){
+          p.a+=p.da; if(p.a>1||p.a<0)p.da*=-1;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle=`hsla(${p.hue},75%,78%,${p.a})`; ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize',resize); resize(); draw();
+    })();
+  </script>
+<script src="globalMusic.js"></script>
+</body>
+</html>

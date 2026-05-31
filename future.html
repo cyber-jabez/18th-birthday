@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For The Future — Varsha's 18th</title>
+  <link rel="stylesheet" href="future.css" />
+</head>
+<body>
+
+  <canvas id="futureCanvas"></canvas>
+  <div class="constellation-layer" id="constellationLayer" aria-hidden="true"></div>
+
+  <div class="page-wrap">
+
+    <nav class="back-nav">
+      <a href="main.html" class="back-link">← Back</a>
+    </nav>
+
+    <header class="page-header">
+      <p class="page-tag">Page Seven</p>
+      <h1 class="page-title">Chapter 18</h1>
+      <p class="page-subtitle">Your story begins here.</p>
+    </header>
+
+    <!-- Intro block -->
+    <div class="future-intro">
+      <p>18 is the first page of a chapter you get to write yourself. No curriculum. No one else's timeline. Just yours.</p>
+    </div>
+
+    <!-- Timeline -->
+    <section class="future-timeline" aria-label="The road ahead">
+
+      <div class="ft-item ft-left">
+        <div class="ft-connector">
+          <div class="ft-dot"></div>
+          <div class="ft-line"></div>
+        </div>
+        <article class="ft-card">
+          <span class="ft-tag">Now</span>
+          <h2 class="ft-title">The Beginning</h2>
+          <p class="ft-text">Right now, at 18, everything is still open. College. New cities. New people. New versions of yourself. The slate isn't blank — it's full of who you already are. That's a better starting point.</p>
+        </article>
+      </div>
+
+      <div class="ft-item ft-right">
+        <div class="ft-connector">
+          <div class="ft-dot"></div>
+          <div class="ft-line"></div>
+        </div>
+        <article class="ft-card">
+          <span class="ft-tag">College</span>
+          <h2 class="ft-title">Building Things</h2>
+          <p class="ft-text">Civil engineering isn't just a degree — it's a way of thinking. You're learning to look at the world and ask: how does this hold together? How could it be stronger? That question will serve you in ways that go far beyond structures.</p>
+        </article>
+      </div>
+
+      <div class="ft-item ft-left">
+        <div class="ft-connector">
+          <div class="ft-dot"></div>
+          <div class="ft-line"></div>
+        </div>
+        <article class="ft-card">
+          <span class="ft-tag">The Road</span>
+          <h2 class="ft-title">Somewhere New</h2>
+          <p class="ft-text">One day you'll go somewhere you've never been. On a bike, or a train, or a plane, or on foot. And you'll look at an unfamiliar horizon and realize: this is yours too. The world gets bigger the more you move through it.</p>
+        </article>
+      </div>
+
+      <div class="ft-item ft-right">
+        <div class="ft-connector">
+          <div class="ft-dot"></div>
+          <div class="ft-line"></div>
+        </div>
+        <article class="ft-card">
+          <span class="ft-tag">Becoming</span>
+          <h2 class="ft-title">More Yourself</h2>
+          <p class="ft-text">Every year after this one you'll understand yourself a little better. What you actually want. What you can let go of. Who you want around. The growing up doesn't stop at 18 — it just gets more intentional.</p>
+        </article>
+      </div>
+
+      <div class="ft-item ft-left">
+        <div class="ft-connector">
+          <div class="ft-dot"></div>
+          <div class="ft-line"></div>
+        </div>
+        <article class="ft-card">
+          <span class="ft-tag">The Work</span>
+          <h2 class="ft-title">Things You'll Build</h2>
+          <p class="ft-text">Bridges, maybe. Roads. Foundations. Or other things — friendships that outlast distance, habits that hold you together, a life that looks like the one you actually wanted. Building is what you do. Let yourself do it.</p>
+        </article>
+      </div>
+
+      <div class="ft-item ft-right">
+        <div class="ft-connector">
+          <div class="ft-dot"></div>
+        </div>
+        <article class="ft-card ft-card-last">
+          <span class="ft-tag">Always</span>
+          <h2 class="ft-title">The Things That Stay</h2>
+          <p class="ft-text">Whatever changes — careers, cities, routines — some things stay. The music that knows your mood. The rain that feels like yours. The purple corner of the world that is unmistakably you. Those aren't going anywhere. Neither is who you are.</p>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- Horizon quote -->
+    <div class="horizon-block">
+      <div class="horizon-glow" aria-hidden="true"></div>
+      <p class="horizon-quote">The future doesn't ask you to be ready.<br>It just asks you to show up.</p>
+      <p class="horizon-sub">You've been doing that since day one.</p>
+    </div>
+
+    <footer class="nav-foot">
+      <a href="letters.html" class="foot-link">← Letters</a>
+      <a href="ending.html" class="foot-link">Final Chapter →</a>
+    </footer>
+
+  </div>
+
+  <script>
+    /* ---- Starfield background ---- */
+    (function(){
+      const c = document.getElementById('futureCanvas');
+      const ctx = c.getContext('2d');
+      let pts = [];
+      function resize(){
+        c.width = window.innerWidth; c.height = window.innerHeight;
+        pts = Array.from({length: Math.floor(c.width * c.height / 6500)}, () => ({
+          x: Math.random() * c.width, y: Math.random() * c.height,
+          r: Math.random() * 1.6 + 0.3, a: Math.random(),
+          da: (Math.random() * 0.004 + 0.001) * (Math.random() < .5 ? 1 : -1),
+          hue: 265 + Math.random() * 55
+        }));
+      }
+      function draw(){
+        ctx.clearRect(0, 0, c.width, c.height);
+        const g = ctx.createRadialGradient(c.width * .5, c.height * .3, 0, c.width * .5, c.height * .3, c.width);
+        g.addColorStop(0, '#180f38'); g.addColorStop(.6, '#0c0622'); g.addColorStop(1, '#03010a');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, c.width, c.height);
+        for(const p of pts){
+          p.a += p.da; if(p.a > 1 || p.a < 0) p.da *= -1;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${p.hue},78%,80%,${p.a})`; ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize', resize); resize(); draw();
+    })();
+
+    /* ---- Constellation SVG overlay ---- */
+    (function(){
+      const layer = document.getElementById('constellationLayer');
+      const svgNS = 'http://www.w3.org/2000/svg';
+      function buildConst(){
+        layer.innerHTML = '';
+        const W = window.innerWidth, H = window.innerHeight;
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('width', W); svg.setAttribute('height', H);
+        svg.style.cssText = 'position:absolute;inset:0;';
+
+        const nodes = Array.from({length: 18}, () => ({
+          x: 80 + Math.random() * (W - 160),
+          y: 60 + Math.random() * (H - 120),
+          r: Math.random() * 1.8 + 0.8,
+          a: Math.random() * 0.5 + 0.2
+        }));
+
+        // Draw lines between nearby nodes
+        for(let i = 0; i < nodes.length; i++){
+          for(let j = i+1; j < nodes.length; j++){
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < W * 0.18){
+              const line = document.createElementNS(svgNS, 'line');
+              line.setAttribute('x1', nodes[i].x); line.setAttribute('y1', nodes[i].y);
+              line.setAttribute('x2', nodes[j].x); line.setAttribute('y2', nodes[j].y);
+              line.setAttribute('stroke', `rgba(192,132,252,0.07)`);
+              line.setAttribute('stroke-width', '0.8');
+              svg.appendChild(line);
+            }
+          }
+        }
+
+        nodes.forEach(n => {
+          const circle = document.createElementNS(svgNS, 'circle');
+          circle.setAttribute('cx', n.x); circle.setAttribute('cy', n.y);
+          circle.setAttribute('r', n.r);
+          circle.setAttribute('fill', `rgba(192,132,252,${n.a})`);
+          svg.appendChild(circle);
+        });
+
+        layer.appendChild(svg);
+      }
+      window.addEventListener('resize', buildConst);
+      buildConst();
+    })();
+
+    /* ---- Stagger timeline ---- */
+    document.querySelectorAll('.ft-item').forEach((el, i) => {
+      el.style.animationDelay = (i * 0.12) + 's';
+    });
+  </script>
+<script src="globalMusic.js"></script>
+</body>
+</html>
