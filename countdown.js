@@ -11,8 +11,8 @@
   const BIRTHDAY_SCREEN_DURATION = 6000; // 6 seconds
 
   /* ---- Config ---- */
-  //const TARGET_DATE = new Date('2026-06-04T00:00:00');
-  const TARGET_DATE = new Date(Date.now() + 10000);
+  const TARGET_DATE = new Date('2026-06-04T00:00:00');
+  //const TARGET_DATE = new Date(Date.now() + 10000);
   const START_DATE  = new Date('2026-05-25T00:00:00');
 
   const QUOTES = [
