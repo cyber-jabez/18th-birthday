@@ -1,0 +1,197 @@
+/* =============================================
+   CHAT ARCHIVES PAGE — css/chat.css
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Cinzel:wght@400;700&family=Raleway:wght@200;300;400;500&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --void: #03010a;
+  --purple-2: #9333ea;
+  --purple-3: #c084fc;
+  --purple-4: #e9d5ff;
+  --glow: #a855f7;
+  --accent: #f0abfc;
+  --glass-bg: rgba(107, 33, 168, 0.07);
+  --glass-border: rgba(192, 132, 252, 0.18);
+  --text-primary: #f3e8ff;
+  --text-muted: rgba(233, 213, 255, 0.5);
+  --text-body: rgba(233, 213, 255, 0.82);
+  --bubble-them-bg: rgba(107, 33, 168, 0.25);
+  --bubble-them-border: rgba(168, 85, 247, 0.3);
+  --bubble-me-bg: rgba(147, 51, 234, 0.35);
+  --bubble-me-border: rgba(192, 132, 252, 0.4);
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-ui: 'Raleway', sans-serif;
+  --font-chat: 'Inter', sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); color: var(--text-primary); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
+#chatCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+.page-wrap { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+.back-nav { margin-bottom: 2rem; }
+.back-link { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-3); text-decoration: none; transition: color 0.2s; }
+.back-link:hover { color: var(--accent); }
+
+.page-header { text-align: center; margin-bottom: 2.5rem; animation: fadeUp 1s var(--ease) both; }
+.page-tag { font-family: var(--font-ui); font-weight: 300; font-size: 0.68rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--purple-3); margin-bottom: 0.6rem; }
+.page-title { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 700; background: linear-gradient(135deg, #e9d5ff, #c084fc, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(168,85,247,0.4)); margin-bottom: 0.6rem; }
+.page-subtitle { font-family: var(--font-body); font-style: italic; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); }
+
+/* ---- Chat Window ---- */
+.chat-window {
+  background: rgba(5, 2, 15, 0.6);
+  border: 1px solid rgba(192,132,252,0.15);
+  border-radius: 24px;
+  padding: 2rem 1.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 0 60px rgba(107,33,168,0.15), 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* ---- Date dividers ---- */
+.chat-date-divider {
+  text-align: center;
+  margin: 0.8rem 0;
+  position: relative;
+}
+
+.chat-date-divider::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 1px;
+  background: rgba(192,132,252,0.15);
+}
+
+.chat-date-divider span {
+  position: relative;
+  background: rgba(5, 2, 15, 0.9);
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(192,132,252,0.5);
+  padding: 0 0.8rem;
+}
+
+/* ---- Bubble rows ---- */
+.bubble-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  animation: bubbleIn 0.5s var(--ease) both;
+}
+
+.row-me { flex-direction: row-reverse; }
+
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Avatar ---- */
+.avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6b21a8, #9333ea);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px rgba(147,51,234,0.4);
+}
+
+/* ---- Bubbles ---- */
+.bubble {
+  max-width: 75%;
+  border-radius: 18px;
+  padding: 0.75rem 1.1rem;
+  font-family: var(--font-chat);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  font-weight: 300;
+  position: relative;
+}
+
+.bubble p { margin: 0; }
+.bubble p + p { margin-top: 0.3rem; }
+
+.bubble-them {
+  background: var(--bubble-them-bg);
+  border: 1px solid var(--bubble-them-border);
+  color: var(--purple-4);
+  border-bottom-left-radius: 6px;
+}
+
+.bubble-me {
+  background: var(--bubble-me-bg);
+  border: 1px solid var(--bubble-me-border);
+  color: #f3e8ff;
+  border-bottom-right-radius: 6px;
+}
+
+.bubble-time {
+  display: block;
+  font-size: 0.6rem;
+  color: rgba(192,132,252,0.4);
+  margin-top: 0.35rem;
+  text-align: right;
+  font-family: var(--font-ui);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.bubble-them .bubble-time { text-align: left; }
+
+/* ---- Ending ---- */
+.chat-ending {
+  margin: 3rem auto;
+  max-width: 520px;
+  text-align: center;
+  padding: 2.2rem 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  animation: fadeUp 0.8s var(--ease) 0.5s both;
+}
+
+.ending-main {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--purple-4);
+  line-height: 1.7;
+}
+
+.ending-sub {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+}
+
+.nav-foot { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(192,132,252,0.1); }
+.foot-link { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-3); text-decoration: none; transition: color 0.2s; }
+.foot-link:hover { color: var(--accent); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+@media (max-width: 600px) {
+  .page-wrap { padding: 2rem 1rem 3rem; }
+  .chat-window { padding: 1.5rem 1rem; }
+  .bubble { max-width: 88%; }
+}

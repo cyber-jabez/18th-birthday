@@ -1,0 +1,177 @@
+/* =============================================
+   SCHOOL PAGE — css/school.css
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700&family=Raleway:wght@200;300;400;500&display=swap');
+
+:root {
+  --void: #03010a;
+  --purple-2: #9333ea;
+  --purple-3: #c084fc;
+  --purple-4: #e9d5ff;
+  --glow: #a855f7;
+  --accent: #f0abfc;
+  --glass-bg: rgba(107, 33, 168, 0.07);
+  --glass-border: rgba(192, 132, 252, 0.18);
+  --text-primary: #f3e8ff;
+  --text-muted: rgba(233, 213, 255, 0.5);
+  --text-body: rgba(233, 213, 255, 0.82);
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-ui: 'Raleway', sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--void); color: var(--text-primary); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; }
+#schoolCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+.page-wrap { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+.back-nav { margin-bottom: 2rem; }
+.back-link { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-3); text-decoration: none; transition: color 0.2s; }
+.back-link:hover { color: var(--accent); }
+
+.page-header { text-align: center; margin-bottom: 3.5rem; animation: fadeUp 1s var(--ease) both; }
+.page-tag { font-family: var(--font-ui); font-weight: 300; font-size: 0.68rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--purple-3); margin-bottom: 0.6rem; }
+.page-title { font-family: var(--font-display); font-size: clamp(2rem, 5.5vw, 4rem); font-weight: 700; background: linear-gradient(135deg, #e9d5ff, #c084fc, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(168,85,247,0.4)); margin-bottom: 0.7rem; }
+.page-subtitle { font-family: var(--font-body); font-style: italic; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-muted); }
+
+/* ---- Timeline ---- */
+.memory-timeline {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.memory-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(168,85,247,0.35) 10%, rgba(168,85,247,0.35) 90%, transparent);
+  transform: translateX(-50%);
+}
+
+.memory-item {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 calc(50% + 3rem) 2.5rem 0;
+  position: relative;
+  animation: fadeUp 0.8s var(--ease) both;
+}
+
+.memory-item:nth-child(1){ animation-delay:0.1s; }
+.memory-item:nth-child(2){ animation-delay:0.2s; }
+.memory-item:nth-child(3){ animation-delay:0.3s; }
+.memory-item:nth-child(4){ animation-delay:0.4s; }
+.memory-item:nth-child(5){ animation-delay:0.5s; }
+.memory-item:nth-child(6){ animation-delay:0.6s; }
+
+.memory-item.mi-right {
+  justify-content: flex-start;
+  padding: 0 0 2.5rem calc(50% + 3rem);
+}
+
+.memory-dot {
+  position: absolute;
+  left: 50%;
+  top: 1.6rem;
+  width: 10px; height: 10px;
+  background: var(--glow);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 14px var(--glow);
+  flex-shrink: 0;
+}
+
+.memory-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.6rem 1.8rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  width: 100%;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.memory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(107,33,168,0.25);
+}
+
+.mem-tag {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--purple-3);
+  margin-bottom: 0.5rem;
+}
+
+.mem-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--purple-4);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.mem-text {
+  font-family: var(--font-body);
+  font-size: clamp(0.98rem, 1.7vw, 1.1rem);
+  line-height: 1.78;
+  color: var(--text-body);
+}
+
+/* ---- Message ---- */
+.school-message {
+  margin: 3rem auto;
+  max-width: 640px;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  animation: fadeUp 0.8s var(--ease) 0.7s both;
+}
+
+.msg-main {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--purple-4);
+  line-height: 1.7;
+  margin-bottom: 0.8rem;
+}
+
+.msg-sub {
+  font-family: var(--font-ui);
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+}
+
+.nav-foot { display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(192,132,252,0.1); }
+.foot-link { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-3); text-decoration: none; transition: color 0.2s; }
+.foot-link:hover { color: var(--accent); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+/* Responsive: collapse timeline on mobile */
+@media (max-width: 660px) {
+  .memory-timeline::before { left: 1rem; }
+  .memory-item,
+  .memory-item.mi-right {
+    justify-content: flex-start;
+    padding: 0 0 2rem 2.5rem;
+  }
+  .memory-dot { left: 1rem; }
+  .page-wrap { padding: 2rem 1.2rem 3rem; }
+}
