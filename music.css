@@ -183,6 +183,13 @@ body.rain-mode .rain-btn {
   }
 }
 
+/* ---- Tablet (600–900px) ---- */
+@media (max-width: 900px) and (min-width: 601px) {
+  .player-main {
+    position: static; /* no sticky on tablet stacked layout */
+  }
+}
+
 /* ---- Player Main (left panel) ---- */
 .player-main {
   background: var(--glass-bg);
@@ -670,12 +677,66 @@ body.rain-mode .rain-btn {
 @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
 
 @media (max-width: 600px) {
-  .page-wrap { padding: 1.5rem 1rem 3rem; }
-  .player-main { padding: 1.8rem 1.2rem 1.5rem; }
-  .artwork-wrap { width: 180px; height: 180px; }
-  .artwork-frame { width: 160px; height: 160px; }
-  #artworkCanvas { width: 160px; height: 160px; }
-  .artwork-img { width: 160px; height: 160px; }
+  /* Layout */
+  .page-wrap { padding: 1rem 0.85rem 2.5rem; }
+  .player-main {
+    padding: 1.5rem 1.1rem 1.4rem;
+    border-radius: 22px;
+    position: static;
+    gap: 1.1rem;
+  }
+
+  /* Nav */
+  .back-nav { margin-bottom: 1rem; }
+  .rain-btn { padding: 0.35rem 0.8rem; font-size: 0.68rem; }
+
+  /* Hero */
+  .music-hero { margin-bottom: 1.5rem; }
+
+  /* Artwork – smaller on phone */
+  .artwork-wrap { width: 160px; height: 160px; }
+  .artwork-frame { width: 148px; height: 148px; }
+  #artworkCanvas { width: 148px; height: 148px; }
+  .artwork-img { width: 148px; height: 148px; }
+
+  /* Song info */
+  .song-title { font-size: 1.05rem; }
+  .song-artist { font-size: 0.75rem; }
+
+  /* Seekbar — taller tap target */
+  .seekbar { height: 28px; }
+  .seekbar-track { height: 4px; }
+  .seekbar-thumb {
+    width: 16px; height: 16px;
+    opacity: 1; /* always visible on touch */
+  }
+  .time-stamp { font-size: 0.65rem; min-width: 2.4rem; }
+
+  /* Controls — bigger tap targets */
+  .controls { gap: 0.5rem; }
+  .ctrl-btn { width: 44px; height: 44px; }
+  .ctrl-btn svg { width: 22px; height: 22px; }
+  .ctrl-play { width: 62px; height: 62px; }
+  .ctrl-play svg { width: 28px; height: 28px; }
+
+  /* Volume */
+  .vol-btn { padding: 0.4rem; }
+  .vol-btn svg { width: 22px; height: 22px; }
+  .vol-slider { height: 28px; }
+  .vol-track { height: 4px; }
+
+  /* Hide keyboard hint on touch screens */
+  .key-hint { display: none; }
+
+  /* Side panel */
+  .visualizer-wrap { height: 80px; border-radius: 16px; }
+  .playlist-wrap { border-radius: 16px; }
+  .playlist-header { padding: 1rem 1.1rem; }
+  .playlist-list { max-height: 50vh; } /* flexible height on mobile */
+  .playlist-item { padding: 0.85rem 1.1rem; gap: 0.7rem; }
+  .pli-title { font-size: 0.8rem; }
+  .pli-artist { font-size: 0.65rem; }
+  .pli-dur { font-size: 0.65rem; }
 }
 
 /* ---- Playlist count (server-side playlist) ---- */
