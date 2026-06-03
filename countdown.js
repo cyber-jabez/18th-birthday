@@ -398,5 +398,24 @@
   animateParticles();
   tick();
   setInterval(tick, 1000);
+document.addEventListener(
+  "click",
+  () => {
 
+    const soundNotice =
+      document.getElementById("soundNotice");
+
+    if (soundNotice) {
+
+      soundNotice.classList.add("hide");
+
+      setTimeout(() => {
+        soundNotice.remove();
+      }, 1000);
+
+    }
+
+  },
+  { once:true }
+);
 })();
