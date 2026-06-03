@@ -380,3 +380,117 @@ html, body {
   .time-sep { display: none; }
   .timer-grid { gap: 0.2rem; }
 }
+
+/* ===================================
+   CLICK ANYWHERE FOR SOUND OVERLAY
+=================================== */
+
+#soundNotice {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Blur whole website behind */
+  background: rgba(3, 1, 10, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transition:
+    opacity 0.8s ease,
+    backdrop-filter 0.8s ease;
+
+  cursor: pointer;
+}
+
+
+/* Sound text box */
+.soundBox {
+  font-family: var(--font-thin);
+
+  font-size: clamp(1rem, 3vw, 1.7rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: #f3e8ff;
+
+  padding: 20px 42px;
+  border-radius: 999px;
+
+  background: rgba(147, 51, 234, 0.15);
+
+  border: 1px solid rgba(233,213,255,0.35);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+
+  box-shadow:
+    0 0 25px rgba(168,85,247,0.8),
+    0 0 60px rgba(147,51,234,0.45),
+    inset 0 0 20px rgba(255,255,255,0.08);
+
+  animation:
+    soundFloat 3s ease-in-out infinite,
+    soundGlow 2s ease-in-out infinite;
+
+}
+
+
+/* Floating animation */
+@keyframes soundFloat {
+
+  0%,100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+
+}
+
+
+/* Breathing glow */
+@keyframes soundGlow {
+
+  0%,100% {
+    opacity: 0.75;
+    filter:
+      drop-shadow(0 0 8px #a855f7);
+  }
+
+  50% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 25px #c084fc);
+  }
+
+}
+
+
+/* Hide after click */
+#soundNotice.hide {
+
+  animation: soundFade 1s forwards;
+
+}
+
+
+@keyframes soundFade {
+
+  to {
+
+    opacity: 0;
+
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+
+    visibility: hidden;
+
+  }
+
+}
