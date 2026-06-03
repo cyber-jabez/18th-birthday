@@ -354,10 +354,7 @@
         cancelAnimationFrame(tFrame);
         overlay.style.transition = 'opacity 1.4s ease';
         overlay.style.opacity    = '0';
-        setTimeout(() => {
-          try { localStorage.setItem('varsha18_fromCountdown', '1'); } catch {}
-          window.location.href = 'main.html';
-        }, 1500);
+        setTimeout(() => { window.location.href = 'main.html'; }, 1500);
         return;
       }
     }
