@@ -8,22 +8,71 @@
 </head>
 <body>
 
+  <!-- ════════════════════════════════
+       INTRO / LOADING SCREEN
+  ════════════════════════════════ -->
+  <div id="introScreen">
+    <canvas id="introCanvas"></canvas>
+    <div class="intro-content">
+      <div class="intro-ring"></div>
+      <div class="intro-ring intro-ring--2"></div>
+      <div class="intro-ring intro-ring--3"></div>
+      <p class="intro-date">June 3rd</p>
+      <h1 class="intro-name">Varsha</h1>
+      <p class="intro-turns">turns <span class="intro-number">18</span></p>
+      <button class="intro-enter" id="introEnter" aria-label="Enter birthday experience">
+        <span class="enter-text">Enter</span>
+        <span class="enter-sparkle">✦</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       CURSOR SPARKLE LAYER
+  ════════════════════════════════ -->
+  <canvas id="sparkleCanvas"></canvas>
+
+  <!-- ════════════════════════════════
+       STAR BACKGROUND
+  ════════════════════════════════ -->
   <canvas id="starCanvas"></canvas>
 
-  <div class="page-wrapper">
+  <!-- ════════════════════════════════
+       CONFETTI LAYER
+  ════════════════════════════════ -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ════════════════════════════════
+       SCROLL PROGRESS BAR
+  ════════════════════════════════ -->
+  <div class="scroll-bar" id="scrollBar"></div>
+
+  <!-- ════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════ -->
+  <div class="page-wrapper" id="mainContent">
 
     <header class="hero">
       <p class="hero-pre">A birthday, a beginning</p>
-      <h1 class="hero-title">Happy 18th Birthday<span class="comma">,</span> <span class="name-glow">Varsha</span> <span class="heart">💜</span></h1>
-      <p class="hero-sub">A small collection of memories, wishes, music, and words<br>created for your 18th birthday.</p>
+      <h1 class="hero-title">
+        Happy 18th Birthday<span class="comma">,</span>
+        <span class="name-glow" id="nameGlow">Varsha</span>
+        <span class="heart">💜</span>
+      </h1>
+      <p class="hero-sub" id="typewriterText"></p>
+      <p class="hero-sub hero-sub--hidden" id="heroSubOriginal" aria-hidden="true">A small collection of memories, wishes, music, and words created for your 18th birthday.</p>
       <h2 class="experience-note">
-  click here and Increase your volume for the full experience
-</h2>
+        click here and Increase your volume for the full experience
+      </h2>
+      <div class="explore-progress" id="exploreProgress">
+        <span class="progress-label">0 of 8 explored</span>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
     </header>
 
     <nav class="nav-grid" aria-label="Birthday pages">
 
-      <a href="about.html" class="nav-card" style="--delay:0.1s">
+      <a href="about.html" class="nav-card" style="--delay:0.1s" data-page="about">
         <div class="card-icon" aria-hidden="true">💜</div>
         <div class="card-content">
           <h2 class="card-title">About You</h2>
@@ -33,7 +82,7 @@
         <div class="card-glow"></div>
       </a>
 
-      <a href="school.html" class="nav-card" style="--delay:0.18s">
+      <a href="school.html" class="nav-card" style="--delay:0.18s" data-page="school">
         <div class="card-icon" aria-hidden="true">📚</div>
         <div class="card-content">
           <h2 class="card-title">School Days</h2>
@@ -43,7 +92,7 @@
         <div class="card-glow"></div>
       </a>
 
-      <a href="chat.html" class="nav-card" style="--delay:0.26s">
+      <a href="chat.html" class="nav-card" style="--delay:0.26s" data-page="chat">
         <div class="card-icon" aria-hidden="true">💬</div>
         <div class="card-content">
           <h2 class="card-title">Chat Archives</h2>
@@ -53,7 +102,7 @@
         <div class="card-glow"></div>
       </a>
 
-      <a href="music.html" class="nav-card featured" style="--delay:0.34s">
+      <a href="music.html" class="nav-card featured" style="--delay:0.34s" data-page="music">
         <div class="card-icon" aria-hidden="true">🎵</div>
         <div class="card-content">
           <h2 class="card-title">Your Favorite Songs</h2>
@@ -64,7 +113,7 @@
         <div class="card-badge">Play</div>
       </a>
 
-      <a href="wishes.html" class="nav-card" style="--delay:0.42s">
+      <a href="wishes.html" class="nav-card" style="--delay:0.42s" data-page="wishes">
         <div class="card-icon" aria-hidden="true">🎂</div>
         <div class="card-content">
           <h2 class="card-title">18 Wishes</h2>
@@ -74,7 +123,7 @@
         <div class="card-glow"></div>
       </a>
 
-      <a href="letters.html" class="nav-card" style="--delay:0.50s">
+      <a href="letters.html" class="nav-card" style="--delay:0.50s" data-page="letters">
         <div class="card-icon" aria-hidden="true">✉</div>
         <div class="card-content">
           <h2 class="card-title">Letters</h2>
@@ -84,7 +133,7 @@
         <div class="card-glow"></div>
       </a>
 
-      <a href="future.html" class="nav-card" style="--delay:0.58s">
+      <a href="future.html" class="nav-card" style="--delay:0.58s" data-page="future">
         <div class="card-icon" aria-hidden="true">🌟</div>
         <div class="card-content">
           <h2 class="card-title">For The Future</h2>
@@ -94,7 +143,7 @@
         <div class="card-glow"></div>
       </a>
 
-      <a href="ending.html" class="nav-card" style="--delay:0.66s">
+      <a href="ending.html" class="nav-card" style="--delay:0.66s" data-page="ending">
         <div class="card-icon" aria-hidden="true">🎬</div>
         <div class="card-content">
           <h2 class="card-title">Final Chapter</h2>
