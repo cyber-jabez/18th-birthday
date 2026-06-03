@@ -411,19 +411,21 @@
     try { localStorage.setItem('varsha_volume', volume); } catch(e) {}
   }
 
-  volSlider.addEventListener('click', e => {
-    const rect = volSlider.getBoundingClientRect();
-    setVolume((e.clientX - rect.left) / rect.width);
-  });
-
   let draggingVol = false;
-  volSlider.addEventListener('mousedown', () => draggingVol = true);
-  document.addEventListener('mousemove', e => {
-    if (!draggingVol) return;
-    const rect = volSlider.getBoundingClientRect();
-    setVolume((e.clientX - rect.left) / rect.width);
-  });
+
+  function getVolPct(e, el) {
+    const rect = el.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return Math.min(1, Math.max(0, x / rect.width));
+  }
+
+  volSlider.addEventListener('mousedown', e => { draggingVol = true; setVolume(getVolPct(e, volSlider)); });
+  document.addEventListener('mousemove', e => { if (!draggingVol) return; setVolume(getVolPct(e, volSlider)); });
   document.addEventListener('mouseup', () => draggingVol = false);
+
+  volSlider.addEventListener('touchstart', e => { draggingVol = true; setVolume(getVolPct(e, volSlider)); }, {passive: true});
+  volSlider.addEventListener('touchmove',  e => { if (!draggingVol) return; setVolume(getVolPct(e, volSlider)); }, {passive: true});
+  volSlider.addEventListener('touchend',   () => draggingVol = false);
 
   muteBtn.addEventListener('click', () => {
     isMuted = !isMuted;
